@@ -154,9 +154,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710230943240_TimeFields.cs" />
-    <Compile Include="Migrations\201710230943240_TimeFields.Designer.cs">
-      <DependentUpon>201710230943240_TimeFields.cs</DependentUpon>
+    <Compile Include="Migrations\201710231241304_Init.cs" />
+    <Compile Include="Migrations\201710231241304_Init.Designer.cs">
+      <DependentUpon>201710231241304_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EnumEntities.cs" />
@@ -223,8 +223,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710230943240_TimeFields.resx">
-      <DependentUpon>201710230943240_TimeFields.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710231241304_Init.resx">
+      <DependentUpon>201710231241304_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
