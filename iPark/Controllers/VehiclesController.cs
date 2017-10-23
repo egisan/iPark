@@ -91,7 +91,7 @@ namespace iPark.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Edit/5
+        // GET: Vehicles/Edit/5  (DELETE)
         public ActionResult CheckOut(int? id)
         {
             if (id == null)
@@ -106,7 +106,7 @@ namespace iPark.Controllers
             return View(vehicle);
         }
 
-        // POST: Vehicles/Edit/5
+        // POST: Vehicles/Edit/5 (DELETE)
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,14 +118,14 @@ namespace iPark.Controllers
                 vehicle.CheckOut = System.DateTime.Now;
                 db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
-                if (Request.s["Receipt"])
-                {
-                    return RedirectToAction("Receipt");
-                }
-                else
-                {
+                //if (Request.s["Receipt"])
+                //{
+                //    return RedirectToAction("Receipt");
+                //}
+                //else
+                //{
                     return RedirectToAction("Index");
-                }
+               //  }
                 
             }
             return View(vehicle);
