@@ -47,7 +47,7 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,NrWheels")] Vehicle vehicle)
+        public ActionResult Create([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
@@ -80,10 +80,15 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,NrWheels,CheckIn,CheckOut")] Vehicle vehicle)
+        public ActionResult Edit([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels,CheckIn,CheckOut")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
+                if (vehicle.CheckIn == null)
+                {
+                    vehicle.CheckIn = System.DateTime.Now;
+                }
+                vehicle.CheckOut = null;
                 db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -111,21 +116,21 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CheckOut([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,NrWheels")] Vehicle vehicle)
+        public ActionResult CheckOut([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
                 vehicle.CheckOut = System.DateTime.Now;
                 db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
-                if (Request.s["Receipt"])
-                {
-                    return RedirectToAction("Receipt");
-                }
-                else
-                {
+                //if (Request["Receipt"])
+                //{
+                //    return RedirectToAction("Receipt");
+                //}
+                //else
+               // {
                     return RedirectToAction("Index");
-                }
+               // }
                 
             }
             return View(vehicle);
