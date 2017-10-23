@@ -17,12 +17,7 @@ namespace iPark.Models
             CAR, BUS, MC, VAN
         }
 
-        public enum Makes
-        {
-
-
-
-        }
+        
 
     }
 }
