@@ -185,10 +185,37 @@ namespace iPark.Controllers
                 //  ParkingTime = vehicle.CheckOut
 
 
-                vehicleVM.ParkingTime = (int) vehicleVM.CheckOut.Subtract(vehicleVM.CheckIn).TotalMinutes;
+                // vehicleVM.ParkingTime = (int) vehicleVM.CheckOut.Subtract(vehicleVM.CheckIn).TotalMinutes;
 
 
-                // System.TimeSpan diff1 = date2.Subtract(date1);
+                /* Console.WriteLine("{0:N5} minutes, as follows:", interval.TotalMinutes);
+                Console.WriteLine("   Minutes:      {0,5}", interval.Days * 24 * 60 +  
+                                                  interval.Hours * 60 + 
+                                                  interval.Minutes);
+                Console.WriteLine("   Seconds:      {0,5}", interval.Seconds);
+                Console.WriteLine("   Milliseconds: {0,5}", interval.Milliseconds);
+                }
+                */
+
+                TimeSpan interval = vehicleVM.CheckOut.Subtract(vehicleVM.CheckIn);
+                int days = interval.Days;
+                int hours = interval.Hours;
+                int minutes = interval.Minutes;
+                int seconds = interval.Seconds;
+
+                // Egidio: I changed the type of ParkingTime to String!!
+
+                vehicleVM.ParkingTime = days.ToString() + " days " + hours.ToString() + " hours " + minutes.ToString() + " minutes " + seconds.ToString() + " seconds";
+
+                // Egidio: we can use a dictionary to set the prices for each vehicle (vehicleType is the KEY in dictionary) !
+                // Here below I set only a fixed price for all vehicles
+
+                decimal FeePerHour = 10.0m; // it is decimal type 
+
+                decimal parkFee = FeePerHour * ((days * 24) + hours + minutes/60.0m + seconds/3600.0m);
+                vehicleVM.TotalParkFee = $"{parkFee,6:N2} kr";
+                
+                
                 return RedirectToAction("Receipt", vehicleVM);
             }
             else

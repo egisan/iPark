@@ -17,7 +17,8 @@ namespace iPark.Models
         public DateTime CheckOut { get; set; }
         // System.TimeSpan diff1 = date2.Subtract(date1);
 
-        public int ParkingTime;
+        public string ParkingTime { get; set; }  // I will combine days, hours, min, sec in VehicleController
+        public string TotalParkFee { get; set; }
 
 
     }
