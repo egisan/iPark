@@ -16,9 +16,50 @@ namespace iPark.Controllers
         private GarageContext db = new GarageContext();
 
         // GET: Vehicles
-        public ActionResult Index()
+        public ActionResult Index(string sort, string searchRegNo, string searchVehichleType, string searchCheckIn, string searchCheckOut)
         {
-            return View(db.Vehicles.ToList());
+            ViewBag.sort = String.IsNullOrEmpty(sort) ? "" : sort;
+            ViewBag.searchRegNo = String.IsNullOrEmpty(searchRegNo) ? "" : searchRegNo;
+            ViewBag.searchVehichleType = String.IsNullOrEmpty(searchVehichleType) ? "" : searchVehichleType;
+            ViewBag.searchCheckIn = String.IsNullOrEmpty(searchCheckIn) ? "" : searchCheckIn;
+            ViewBag.searchCheckOut = String.IsNullOrEmpty(searchCheckOut) ? "" : searchCheckOut;
+            var dbVehicles = db.Vehicles;
+            List<Vehicle> vehicles;
+            if (sort != null)
+            {
+                vehicles = GetSorted(sort);
+            }
+            else
+            {
+                vehicles = dbVehicles.ToList();
+            }
+            if (!String.IsNullOrEmpty(searchRegNo))
+            {
+                vehicles = vehicles.Where(e => e.RegNo.ToLower().StartsWith(searchRegNo.ToLower())).ToList();
+            }
+            if (!String.IsNullOrEmpty(searchVehichleType))
+            {
+
+                if (EnumEntities.Vtypes.BUS.ToString().ToLower() == searchVehichleType.ToLower())
+                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.BUS.ToString().ToLower()).ToList();
+                if (EnumEntities.Vtypes.CAR.ToString().ToLower() == searchVehichleType.ToLower())
+                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.CAR.ToString().ToLower()).ToList();
+                if (EnumEntities.Vtypes.MC.ToString().ToLower() == searchVehichleType.ToLower())
+                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.MC.ToString().ToLower()).ToList();
+                if (EnumEntities.Vtypes.VAN.ToString().ToLower() == searchVehichleType.ToLower())
+                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.VAN.ToString().ToLower()).ToList();
+
+
+            }
+            if (!String.IsNullOrEmpty(searchCheckIn))
+            {
+               vehicles = vehicles.Where(e => e.CheckIn.CompareTo(System.DateTime.Parse(searchCheckIn)) > 0).ToList();
+            }
+            if (!String.IsNullOrEmpty(searchCheckOut))
+            {
+                vehicles = vehicles.Where(e => e.CheckOut != null && System.DateTime.Parse(e.CheckOut.ToString()).CompareTo(System.DateTime.Parse(searchCheckOut)) > 0).ToList();
+            }
+            return View(vehicles);
         }
 
         // GET: Vehicles/Details/5
@@ -123,7 +164,7 @@ namespace iPark.Controllers
                 vehicle.CheckOut = System.DateTime.Now;
                 db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
-                //if (Request["Receipt"])
+                if (Request.Form["Receipt"] == "true")
                 //{
                 //    return RedirectToAction("Receipt");
                 //}
@@ -144,6 +185,32 @@ namespace iPark.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public List<Vehicle> GetSorted(string sort)
+        {
+            List<Vehicle> results = new List<Vehicle>();
+            switch (sort)
+            {
+                case "0":
+                    results = db.Vehicles.OrderBy(e => e.RegNo).ToList();
+                    break;
+                case "1":
+                    results = db.Vehicles.OrderBy(e => e.VehichleType).ToList();
+                    break;
+                case "2":
+                    results = db.Vehicles.OrderBy(e => e.CheckIn).ToList();
+                    break;
+                case "3":
+                    results = db.Vehicles.OrderBy(e => e.CheckOut).ToList();
+                    break;
+                default:
+                    results = db.Vehicles.ToList();
+                    break;
+
+            }
+
+            return results;
         }
     }
 }

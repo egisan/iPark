@@ -2,14 +2,17 @@
 
 @{
     ViewBag.Title = "Index";
-   // ViewBag.Title = "";
+    // ViewBag.Title = "";
 }
+<h2>Current Parked Vehicles</h2>
+
+@using (Html.BeginForm())
+{
 <p class="active">
     <table>
         <tr>
             <td>RegNo</td>
             <td>VehichleType</td>
-            <td>Model</td>
             <td>CheckIn</td>
             <td>CheckOut</td>
             <td></td>
@@ -17,7 +20,6 @@
         <tr>
             <td> @Html.TextBox("searchRegNo", ViewBag.searchRegNo as string) </td>
             <td> @Html.TextBox("searchVehichleType", ViewBag.searchVehichleType as string) </td>
-            <td> @Html.TextBox("searchModel", ViewBag.searchModel as string) </td>
             <td> @Html.TextBox("searchCheckIn", ViewBag.searchCheckIn as string) </td>
             <td> @Html.TextBox("searchCheckOut", ViewBag.searchCheckOut as string) </td>
             <td><input type="submit" value="Search" /></td>
@@ -27,72 +29,53 @@
 
 
 </p>
-<h2>Current Parked Vehicles</h2>
+}
 
 <p>
     @Html.ActionLink("Park a new vehicle", "Create")
 </p>
-<table class="table">
-    <tr>
+<table class="table listTable">
+    <tr class="well btn-info">
         <th>
-            @Html.DisplayNameFor(model => model.RegNo)
+            @Html.ActionLink("RegNo", "Index", new { sort = "0" }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Color)
+            @Html.ActionLink("Type", "Index", new { sort = "1" }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VehichleType)
+            @Html.ActionLink("CheckIn", "Index", new { sort = "2" }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Make)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Wheels)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CheckIn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CheckOut)
+            @Html.ActionLink("CheckOut", "Index", new { sort = "3" }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VehichleType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Make)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Wheels)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckIn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckOut)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehichleType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckOut)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+
+    }
+
 
 </table>
