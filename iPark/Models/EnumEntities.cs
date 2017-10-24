@@ -14,7 +14,7 @@ namespace iPark.Models
 
         public enum Vtypes
         {
-            CAR, BUS, MC, VAN
+             BUS, CAR, MC, VAN
         }
 
         
