@@ -13,6 +13,8 @@ namespace iPark.Models
         [Required]
         [StringLength(7, ErrorMessage = "The Last {0} length can't be more {1} signs", MinimumLength =6)]
         public string RegNo { get; set; }
+        [Required]
+        public int ParkingNo { get; set; }
 
         [Required]
         public EnumEntities.Colors Color { get; set; }
