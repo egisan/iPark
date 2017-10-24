@@ -55,7 +55,7 @@ namespace iPark.Controllers
             }
             if (!String.IsNullOrEmpty(searchCheckIn))
             {
-               vehicles = vehicles.Where(e => e.CheckIn.CompareTo(System.DateTime.Parse(searchCheckIn)) > 0).ToList();
+                vehicles = vehicles.Where(e => e.CheckIn.CompareTo(System.DateTime.Parse(searchCheckIn)) > 0).ToList();
             }
             if (!String.IsNullOrEmpty(searchCheckOut))
             {
@@ -163,26 +163,48 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CheckOut([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels")] Vehicle vehicle)
+        public ActionResult CheckOut(int id)
         {
-            if (ModelState.IsValid)
+            Vehicle vehicle = db.Vehicles.Find(id);
+            vehicle.CheckOut = System.DateTime.Now;
+            db.Entry(vehicle).State = EntityState.Modified;
+            db.SaveChanges();
+
+            if (Request.Form["Receipt"] == "on")
             {
-                vehicle.CheckOut = System.DateTime.Now;
-                db.Entry(vehicle).State = EntityState.Modified;
-                db.SaveChanges();
-                if (Request.Form["Receipt"] == "on")
-                {
-                    return RedirectToAction("Receipt");
-                }
-                //else
-               // {
-                    return RedirectToAction("Index");
-               // }
-                
+                var vehicleVM = new ReceiptViewModel();
+
+                vehicleVM.VehicleType = vehicle.VehichleType;
+                vehicleVM.Make = vehicle.Make;
+                vehicleVM.Model = vehicle.Model;
+                vehicleVM.RegNo = vehicle.RegNo;
+                vehicleVM.Color = vehicle.Color;
+                vehicleVM.CheckIn = vehicle.CheckIn;
+
+                vehicleVM.CheckOut = vehicle.CheckOut ?? DateTime.Now;
+                //  ParkingTime = vehicle.CheckOut
+
+
+                vehicleVM.ParkingTime = (int) vehicleVM.CheckOut.Subtract(vehicleVM.CheckIn).TotalMinutes;
+
+
+                // System.TimeSpan diff1 = date2.Subtract(date1);
+                return RedirectToAction("Receipt", vehicleVM);
             }
-            return View(vehicle);
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            // return View(vehicle);
         }
 
+        public ActionResult Receipt(ReceiptViewModel receipt)
+        {
+
+
+            return View("Receipt", receipt);
+        }
 
         protected override void Dispose(bool disposing)
         {
