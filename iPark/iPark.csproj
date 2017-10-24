@@ -154,9 +154,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710231420039_Validations.cs" />
-    <Compile Include="Migrations\201710231420039_Validations.Designer.cs">
-      <DependentUpon>201710231420039_Validations.cs</DependentUpon>
+    <Compile Include="Migrations\201710240701272_Validations.cs" />
+    <Compile Include="Migrations\201710240701272_Validations.Designer.cs">
+      <DependentUpon>201710240701272_Validations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EnumEntities.cs" />
@@ -224,8 +224,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710231420039_Validations.resx">
-      <DependentUpon>201710231420039_Validations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710240701272_Validations.resx">
+      <DependentUpon>201710240701272_Validations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
