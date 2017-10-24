@@ -7,13 +7,13 @@ namespace iPark.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class TimeFields : IMigrationMetadata
+    public sealed partial class Validations : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(TimeFields));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Validations));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710230943240_TimeFields"; }
+            get { return "201710231420039_Validations"; }
         }
         
         string IMigrationMetadata.Source

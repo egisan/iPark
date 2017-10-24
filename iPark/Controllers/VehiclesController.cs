@@ -47,10 +47,11 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,NrWheels,CheckIn,CheckOut")] Vehicle vehicle)
+        public ActionResult Create([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
+                vehicle.CheckIn = System.DateTime.Now;
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -79,10 +80,15 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,NrWheels,CheckIn,CheckOut")] Vehicle vehicle)
+        public ActionResult Edit([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels,CheckIn,CheckOut")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
+                if (vehicle.CheckIn == null)
+                {
+                    vehicle.CheckIn = System.DateTime.Now;
+                }
+                vehicle.CheckOut = null;
                 db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -90,8 +96,8 @@ namespace iPark.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Vehicles/Edit/5  (DELETE)
+        public ActionResult CheckOut(int? id)
         {
             if (id == null)
             {
@@ -105,16 +111,31 @@ namespace iPark.Controllers
             return View(vehicle);
         }
 
-        // POST: Vehicles/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Vehicles/Edit/5 (DELETE)
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult CheckOut([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels")] Vehicle vehicle)
         {
-            Vehicle vehicle = db.Vehicles.Find(id);
-            db.Vehicles.Remove(vehicle);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                vehicle.CheckOut = System.DateTime.Now;
+                db.Entry(vehicle).State = EntityState.Modified;
+                db.SaveChanges();
+                //if (Request["Receipt"])
+                //{
+                //    return RedirectToAction("Receipt");
+                //}
+                //else
+               // {
+                    return RedirectToAction("Index");
+               // }
+                
+            }
+            return View(vehicle);
         }
+
 
         protected override void Dispose(bool disposing)
         {
