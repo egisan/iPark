@@ -1,15 +1,12 @@
-﻿@model iPark.Models.Vehicle
+﻿@model iPark.Models.ReceiptViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Receipt";
 }
 
-<h2>Details</h2>
+<h2>Receipt</h2>
 
 <div>
-   
-    @*<h4>Vehicle</h4> *@
-
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -29,11 +26,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.VehichleType)
+            @Html.DisplayNameFor(model => model.VehicleType)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VehichleType)
+            @Html.DisplayFor(model => model.VehicleType)
         </dd>
 
         <dt>
@@ -52,14 +49,7 @@
             @Html.DisplayFor(model => model.Model)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Wheels)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Wheels)
-        </dd>
-
+        
         <dt>
             @Html.DisplayNameFor(model => model.CheckIn)
         </dt>
@@ -76,9 +66,28 @@
             @Html.DisplayFor(model => model.CheckOut)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.ParkingTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParkingTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalParkFee)
+        </dt>
+
+        <dd>.
+            @Html.DisplayFor(model => model.TotalParkFee) 
+        
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Modify", "Edit", new { id = Model.Id }) |
+   
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+

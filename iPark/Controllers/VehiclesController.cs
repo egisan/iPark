@@ -15,6 +15,8 @@ namespace iPark.Controllers
     {
         private GarageContext db = new GarageContext();
 
+
+        // Shows the Partial View of vehicles which are in the Garage
         // GET: Vehicles
         public ActionResult Index(string sort, string searchRegNo, string searchVehichleType, string searchCheckIn, string searchCheckOut)
         {
@@ -53,7 +55,7 @@ namespace iPark.Controllers
             }
             if (!String.IsNullOrEmpty(searchCheckIn))
             {
-               vehicles = vehicles.Where(e => e.CheckIn.CompareTo(System.DateTime.Parse(searchCheckIn)) > 0).ToList();
+                vehicles = vehicles.Where(e => e.CheckIn.CompareTo(System.DateTime.Parse(searchCheckIn)) > 0).ToList();
             }
             if (!String.IsNullOrEmpty(searchCheckOut))
             {
@@ -62,6 +64,7 @@ namespace iPark.Controllers
             return View(vehicles);
         }
 
+        // Shows the Detailed View of vehicles parked in Garage
         // GET: Vehicles/Details/5
         public ActionResult Details(int? id)
         {
@@ -77,12 +80,14 @@ namespace iPark.Controllers
             return View(vehicle);
         }
 
+        // Shows the "Park a new vehicle" View
         // GET: Vehicles/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        // Parks a new vehicle - the data are created HERE!!
         // POST: Vehicles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -92,15 +97,15 @@ namespace iPark.Controllers
         {
             if (ModelState.IsValid)
             {
-                vehicle.CheckIn = System.DateTime.Now;
+                vehicle.CheckIn = System.DateTime.Now;  // We add the TimeStamp!
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(vehicle);
         }
 
+        // Shows "Modify Vehicle data View"
         // GET: Vehicles/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -116,6 +121,7 @@ namespace iPark.Controllers
             return View(vehicle);
         }
 
+        // Modify the Vehicle data (but NOT Check out/in timestamps!)
         // POST: Vehicles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -157,26 +163,75 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CheckOut([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels")] Vehicle vehicle)
+        public ActionResult CheckOut(int id)
         {
-            if (ModelState.IsValid)
+            Vehicle vehicle = db.Vehicles.Find(id);
+            vehicle.CheckOut = System.DateTime.Now;
+            db.Entry(vehicle).State = EntityState.Modified;
+            db.SaveChanges();
+
+            if (Request.Form["Receipt"] == "on")
             {
-                vehicle.CheckOut = System.DateTime.Now;
-                db.Entry(vehicle).State = EntityState.Modified;
-                db.SaveChanges();
-                if (Request.Form["Receipt"] == "true")
-                //{
-                //    return RedirectToAction("Receipt");
-                //}
-                //else
-               // {
-                    return RedirectToAction("Index");
-               // }
+                var vehicleVM = new ReceiptViewModel();
+
+                vehicleVM.VehicleType = vehicle.VehichleType;
+                vehicleVM.Make = vehicle.Make;
+                vehicleVM.Model = vehicle.Model;
+                vehicleVM.RegNo = vehicle.RegNo;
+                vehicleVM.Color = vehicle.Color;
+                vehicleVM.CheckIn = vehicle.CheckIn;
+
+                vehicleVM.CheckOut = vehicle.CheckOut ?? DateTime.Now;
+                //  ParkingTime = vehicle.CheckOut
+
+
+                // vehicleVM.ParkingTime = (int) vehicleVM.CheckOut.Subtract(vehicleVM.CheckIn).TotalMinutes;
+
+
+                /* Console.WriteLine("{0:N5} minutes, as follows:", interval.TotalMinutes);
+                Console.WriteLine("   Minutes:      {0,5}", interval.Days * 24 * 60 +  
+                                                  interval.Hours * 60 + 
+                                                  interval.Minutes);
+                Console.WriteLine("   Seconds:      {0,5}", interval.Seconds);
+                Console.WriteLine("   Milliseconds: {0,5}", interval.Milliseconds);
+                }
+                */
+
+                TimeSpan interval = vehicleVM.CheckOut.Subtract(vehicleVM.CheckIn);
+                int days = interval.Days;
+                int hours = interval.Hours;
+                int minutes = interval.Minutes;
+                int seconds = interval.Seconds;
+
+                // Egidio: I changed the type of ParkingTime to String!!
+
+                vehicleVM.ParkingTime = days.ToString() + " days " + hours.ToString() + " hours " + minutes.ToString() + " minutes " + seconds.ToString() + " seconds";
+
+                // Egidio: we can use a dictionary to set the prices for each vehicle (vehicleType is the KEY in dictionary) !
+                // Here below I set only a fixed price for all vehicles
+
+                decimal FeePerHour = 10.0m; // it is decimal type 
+
+                decimal parkFee = FeePerHour * ((days * 24) + hours + minutes/60.0m + seconds/3600.0m);
+                vehicleVM.TotalParkFee = $"{parkFee,6:N2} kr";
                 
+                
+                return RedirectToAction("Receipt", vehicleVM);
             }
-            return View(vehicle);
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            // return View(vehicle);
         }
 
+        public ActionResult Receipt(ReceiptViewModel receipt)
+        {
+
+
+            return View("Receipt", receipt);
+        }
 
         protected override void Dispose(bool disposing)
         {
