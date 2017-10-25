@@ -6,6 +6,12 @@
     <title>@ViewBag.Title - iPark 2.0 </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="icon"
+          type="image/png"
+          href="http://example.com/myicon.png" />
+    <link rel="shortcut icon"
+          type="image/png"
+          href="http://example.com/myicon.png" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -33,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - iPark 2.0 by Ali, Egidio and James</p>
+            <p>&copy; @DateTime.Now.Year - <i class="glyphicon glyphicon-road"></i> iPark 2.0 by Ali, Egidio and James</p>
         </footer>
     </div>
 
