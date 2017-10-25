@@ -15,5 +15,6 @@ namespace iPark.DAL
         public DbSet <Models.Vehicle> Vehicles { get; set; }
         public DbSet<Models.Parking> Parkings { get; set; }
         public DbSet<Models.ParkingVehicle> ParkingVehicles { get; set; }
+        public DbSet<Models.VehicleTypes> VehicleTypes { get; set; }
     }
 }
