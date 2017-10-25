@@ -182,21 +182,7 @@ namespace iPark.Controllers
                 vehicleVM.CheckIn = vehicle.CheckIn;
 
                 vehicleVM.CheckOut = vehicle.CheckOut ?? DateTime.Now;
-                //  ParkingTime = vehicle.CheckOut
-
-
-                // vehicleVM.ParkingTime = (int) vehicleVM.CheckOut.Subtract(vehicleVM.CheckIn).TotalMinutes;
-
-
-                /* Console.WriteLine("{0:N5} minutes, as follows:", interval.TotalMinutes);
-                Console.WriteLine("   Minutes:      {0,5}", interval.Days * 24 * 60 +  
-                                                  interval.Hours * 60 + 
-                                                  interval.Minutes);
-                Console.WriteLine("   Seconds:      {0,5}", interval.Seconds);
-                Console.WriteLine("   Milliseconds: {0,5}", interval.Milliseconds);
-                }
-                */
-
+                
                 TimeSpan interval = vehicleVM.CheckOut.Subtract(vehicleVM.CheckIn);
                 int days = interval.Days;
                 int hours = interval.Hours;
@@ -214,7 +200,6 @@ namespace iPark.Controllers
 
                 decimal parkFee = FeePerHour * ((days * 24) + hours + minutes/60.0m + seconds/3600.0m);
                 vehicleVM.TotalParkFee = $"{parkFee,6:N2} kr";
-                
                 
                 return RedirectToAction("Receipt", vehicleVM);
             }

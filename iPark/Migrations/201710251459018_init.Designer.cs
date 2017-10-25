@@ -7,13 +7,13 @@ namespace iPark.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class VehicleTypes : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(VehicleTypes));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710251357474_VehicleTypes"; }
+            get { return "201710251459018_init"; }
         }
         
         string IMigrationMetadata.Source
