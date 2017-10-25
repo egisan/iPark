@@ -1,18 +1,19 @@
 ﻿@model iPark.Models.ReceiptViewModel
 
 @{
-    ViewBag.Title = "Receipt";
+    ViewBag.Title = "Receipt för " + @Html.DisplayFor(model => model.RegNo);
 }
 
-<h2>Receipt</h2>
+
 <script type="text/javascript">
     function PrintPage() {
         var sOption = "toolbar=yes,location=no,directories=yes,menubar=yes,scrollbars=yes,width=1200,height=800,left=100,top=25";
         var sWinHTML = document.getElementById('PrintDiv').innerHTML;
         var winprint = window.open("", "", sOption);
         winprint.document.open();
-        winprint.document.write('<html><head><title>Receipt för </title><style type="text/css">');
+        winprint.document.write('<html><head><title>Receipt för  @Html.DisplayFor(model => model.RegNo) </title><style type="text/css">');
         winprint.document.write('body,td,th{font-family:Arial, Helvetica, sans-serif;font-size:16px;color:#4487f2}');
+        winprint.document.write('title { font-size:16px; }');
         winprint.document.write('dt { float: left; width: 100px; }');
         winprint.document.write('dd { margin-left: 100px; }');
         winprint.document.write('</style></head><body onload="window.print();">');
@@ -26,8 +27,8 @@
 
 
 
-
 <div id="PrintDiv">
+    <h1>Receipt för @Html.DisplayFor(model => model.RegNo)</h1>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -99,7 +100,7 @@
             @Html.DisplayNameFor(model => model.TotalParkFee)
         </dt>
 
-        <dd>.
+        <dd>
             @Html.DisplayFor(model => model.TotalParkFee) 
         
         </dd>
