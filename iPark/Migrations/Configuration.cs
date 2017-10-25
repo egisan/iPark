@@ -5,34 +5,83 @@ namespace iPark.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using iPark.DAL;
     
 
-    internal sealed class Configuration : DbMigrationsConfiguration<iPark.DAL.GarageContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<GarageContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(iPark.DAL.GarageContext context)
+        public GarageContext context { get; set; }
+
+        protected override void Seed(GarageContext context)
         {
-            AddGarage(context);
-            AddVehicles(context);
+            this.context = context;
+            AddGarage();
+            AddParking();
+            AddVehicles();
+            AddVehicleTypes();
 
 
 
         }
 
-        private void AddVehicles(iPark.DAL.GarageContext context)
+        private void AddGarage()
+        {
+            context.Garages.AddOrUpdate(
+                v => v.Name,
+                    new Garage { Name = "GarageNo 1", Capacity = 100 }
+                 );
+        }
+
+        private void AddParking()
+        {
+            var garages = context.Garages.ToList();
+           
+            foreach(var garage in garages)
+            {
+                var garagNo = 100;
+                for (int i = 0; i < garage.Capacity; i++ )
+                {
+                    context.Parkings.AddOrUpdate(
+                      v => v.ParkingNo,
+                      new Parking { GarageId = garage.Id, ParkingNo = garagNo }
+                   );
+                    garagNo++;
+                }
+            }
+           
+            
+        }
+
+        private void AddVehicleTypes()
+        {
+            context.VehicleTypes.AddOrUpdate(
+               v => v.Name,
+                   new VehicleTypes { Name = "AIRPLANE", Price=90, SpacesRequired=9 },
+                   new VehicleTypes { Name = "BUS", Price = 60, SpacesRequired = 60 },
+                   new VehicleTypes { Name = "CAR", Price = 30, SpacesRequired = 3 },
+                   new VehicleTypes { Name = "MC", Price = 10, SpacesRequired = 1 },
+                   new VehicleTypes { Name = "VAN", Price = 30, SpacesRequired = 3},
+                   new VehicleTypes { Name = "BOAT", Price = 90, SpacesRequired = 9 }
+
+                );
+        }
+
+        private void AddVehicles()
         {
             context.Vehicles.AddOrUpdate(
               v => v.RegNo,
-              new Vehicle { RegNo = "ABC123", Color = EnumEntities.Colors.BLACK, VehichleType = EnumEntities.Vtypes.CAR, Make = "FIAT", Model = "500", Wheels = 4, CheckIn = DateTime.Now },
-              new Vehicle { RegNo = "ABC324", Color = EnumEntities.Colors.YELLOW, VehichleType = EnumEntities.Vtypes.BUS, Make = "VOLVO", Model = "95-3", Wheels = 8, CheckIn = DateTime.Now },
-              new Vehicle { RegNo = "ABC456", Color = EnumEntities.Colors.WHITE, VehichleType = EnumEntities.Vtypes.MC, Make = "SUZUKI", Model = "TURBO", Wheels = 2, CheckIn = DateTime.Now },
-              new Vehicle { RegNo = "ABC789", Color = EnumEntities.Colors.RED, VehichleType = EnumEntities.Vtypes.CAR, Make = "IVECO", Model = "4000", Wheels = 4, CheckIn = DateTime.Now },
-              new Vehicle { RegNo = "ABC987", Color = EnumEntities.Colors.GRAY, VehichleType = EnumEntities.Vtypes.VAN, Make = "Nissan", Model = "2015", Wheels = 4, CheckIn = DateTime.Now }
-              );
+              new Vehicle { RegNo = "ABC123", Color = EnumEntities.Colors.BLACK, VehicleType = EnumEntities.Vtypes.CAR, Make = "FIAT", Model = "500", Wheels = 4, CheckIn = DateTime.Now },
+              new Vehicle { RegNo = "ABC324", Color = EnumEntities.Colors.YELLOW, VehicleType = EnumEntities.Vtypes.BUS, Make = "VOLVO", Model = "95-3", Wheels = 8, CheckIn = DateTime.Now },
+              new Vehicle { RegNo = "ABC456", Color = EnumEntities.Colors.WHITE, VehicleType = EnumEntities.Vtypes.MC, Make = "SUZUKI", Model = "TURBO", Wheels = 2, CheckIn = DateTime.Now },
+              new Vehicle { RegNo = "ABC789", Color = EnumEntities.Colors.RED, VehicleType = EnumEntities.Vtypes.CAR, Make = "IVECO", Model = "4000", Wheels = 4, CheckIn = DateTime.Now },
+              new Vehicle { RegNo = "ABC987", Color = EnumEntities.Colors.GRAY, VehicleType = EnumEntities.Vtypes.VAN, Make = "Nissan", Model = "2015", Wheels = 4, CheckIn = DateTime.Now }
+            );
+
         }
     }
 }

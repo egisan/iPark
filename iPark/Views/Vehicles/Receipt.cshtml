@@ -6,18 +6,28 @@
 
 <h2>Receipt</h2>
 <script type="text/javascript">
-    function CallPrint(strid) {
-        var prtContent = document.getElementById(strid);
-        var WinPrint = window.open('', '', 'letf=100,top=100,width=800,height=800');
-        WinPrint.document.write(prtContent.innerHTML);
-        WinPrint.document.close();
-        WinPrint.focus();
-        WinPrint.print();
-        //WinPrint.close()
+    function PrintPage() {
+        var sOption = "toolbar=yes,location=no,directories=yes,menubar=yes,scrollbars=yes,width=1200,height=800,left=100,top=25";
+        var sWinHTML = document.getElementById('PrintDiv').innerHTML;
+        var winprint = window.open("", "", sOption);
+        winprint.document.open();
+        winprint.document.write('<html><head><title>Receipt för </title><style type="text/css">');
+        winprint.document.write('body,td,th{font-family:Arial, Helvetica, sans-serif;font-size:16px;color:#4487f2}');
+        winprint.document.write('dt { float: left; width: 100px; }');
+        winprint.document.write('dd { margin-left: 100px; }');
+        winprint.document.write('</style></head><body onload="window.print();">');
+        winprint.document.write(sWinHTML);
+        winprint.document.write('</body></html>');
+        winprint.document.close();
+        winprint.focus();
+        //WinPrint.print();
     }
 </script>
+
+
+
+
 <div id="PrintDiv">
-    <h2>Receipt</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -97,8 +107,9 @@
     </dl>
 </div>
 <p>
-    <input type="button" onclick="CallPrint('PrintDiv')" value="Print receipt" />
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") |
+    <input type="button" onclick="PrintPage('PrintDiv')" value="Print receipt" />
+    
 </p>
 
 

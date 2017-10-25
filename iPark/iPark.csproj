@@ -154,17 +154,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710240701272_Validations.cs" />
-    <Compile Include="Migrations\201710240701272_Validations.Designer.cs">
-      <DependentUpon>201710240701272_Validations.cs</DependentUpon>
+    <Compile Include="Migrations\201710251357474_VehicleTypes.cs" />
+    <Compile Include="Migrations\201710251357474_VehicleTypes.Designer.cs">
+      <DependentUpon>201710251357474_VehicleTypes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EnumEntities.cs" />
     <Compile Include="Models\Garage.cs" />
     <Compile Include="Models\Parking.cs" />
-    <Compile Include="Models\ParkingSize.cs" />
+    <Compile Include="Models\ParkingVehicle.cs" />
     <Compile Include="Models\ReceiptViewModel.cs" />
     <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="Models\VehicleTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -230,8 +231,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710240701272_Validations.resx">
-      <DependentUpon>201710240701272_Validations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710251357474_VehicleTypes.resx">
+      <DependentUpon>201710251357474_VehicleTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
