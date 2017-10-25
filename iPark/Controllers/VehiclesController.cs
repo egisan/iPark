@@ -18,11 +18,11 @@ namespace iPark.Controllers
 
         // Shows the Partial View of vehicles which are in the Garage
         // GET: Vehicles
-        public ActionResult Index(string sort, string searchRegNo, string searchVehichleType, string searchCheckIn, string searchCheckOut)
+        public ActionResult Index(string sort, string searchRegNo, string searchVehicleType, string searchCheckIn, string searchCheckOut)
         {
             ViewBag.sort = String.IsNullOrEmpty(sort) ? "" : sort;
             ViewBag.searchRegNo = String.IsNullOrEmpty(searchRegNo) ? "" : searchRegNo;
-            ViewBag.searchVehichleType = String.IsNullOrEmpty(searchVehichleType) ? "" : searchVehichleType;
+            ViewBag.searchVehicleType = String.IsNullOrEmpty(searchVehicleType) ? "" : searchVehicleType;
             ViewBag.searchCheckIn = String.IsNullOrEmpty(searchCheckIn) ? "" : searchCheckIn;
             ViewBag.searchCheckOut = String.IsNullOrEmpty(searchCheckOut) ? "" : searchCheckOut;
             var dbVehicles = db.Vehicles;
@@ -39,16 +39,16 @@ namespace iPark.Controllers
             {
                 vehicles = vehicles.Where(e => e.RegNo.ToLower().StartsWith(searchRegNo.ToLower())).ToList();
             }
-            if (!String.IsNullOrEmpty(searchVehichleType))
+            if (!String.IsNullOrEmpty(searchVehicleType))
             {
 
-                if (EnumEntities.Vtypes.BUS.ToString().ToLower() == searchVehichleType.ToLower())
+                if (EnumEntities.Vtypes.BUS.ToString().ToLower() == searchVehicleType.ToLower())
                     vehicles = vehicles.Where(e => e.VehicleType.ToString().ToLower() == EnumEntities.Vtypes.BUS.ToString().ToLower()).ToList();
-                if (EnumEntities.Vtypes.CAR.ToString().ToLower() == searchVehichleType.ToLower())
+                if (EnumEntities.Vtypes.CAR.ToString().ToLower() == searchVehicleType.ToLower())
                     vehicles = vehicles.Where(e => e.VehicleType.ToString().ToLower() == EnumEntities.Vtypes.CAR.ToString().ToLower()).ToList();
-                if (EnumEntities.Vtypes.MC.ToString().ToLower() == searchVehichleType.ToLower())
+                if (EnumEntities.Vtypes.MC.ToString().ToLower() == searchVehicleType.ToLower())
                     vehicles = vehicles.Where(e => e.VehicleType.ToString().ToLower() == EnumEntities.Vtypes.MC.ToString().ToLower()).ToList();
-                if (EnumEntities.Vtypes.VAN.ToString().ToLower() == searchVehichleType.ToLower())
+                if (EnumEntities.Vtypes.VAN.ToString().ToLower() == searchVehicleType.ToLower())
                     vehicles = vehicles.Where(e => e.VehicleType.ToString().ToLower() == EnumEntities.Vtypes.VAN.ToString().ToLower()).ToList();
 
 
@@ -93,7 +93,7 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels")] Vehicle vehicle)
+        public ActionResult Create([Bind(Include = "Id,RegNo,Color,VehicleType,Make,Model,Wheels")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace iPark.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RegNo,Color,VehichleType,Make,Model,Wheels,CheckIn,CheckOut")] Vehicle vehicle)
+        public ActionResult Edit([Bind(Include = "Id,RegNo,Color,VehicleType,Make,Model,Wheels,CheckIn,CheckOut")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
