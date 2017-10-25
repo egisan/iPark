@@ -12,5 +12,6 @@ namespace iPark.Models
         public int ParkingId { get; set; }
         public Vehicle Vehicle { get; set; }
         public Parking Parking { get; set; }
+
     }
 }

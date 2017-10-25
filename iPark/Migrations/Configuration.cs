@@ -61,12 +61,12 @@ namespace iPark.Migrations
         {
             context.VehicleTypes.AddOrUpdate(
                v => v.Name,
-                   new VehicleTypes { Name = "AIRPLANE", Price=90, SpacesRequired=9 },
-                   new VehicleTypes { Name = "BUS", Price = 60, SpacesRequired = 60 },
-                   new VehicleTypes { Name = "CAR", Price = 30, SpacesRequired = 3 },
-                   new VehicleTypes { Name = "MC", Price = 10, SpacesRequired = 1 },
-                   new VehicleTypes { Name = "VAN", Price = 30, SpacesRequired = 3},
-                   new VehicleTypes { Name = "BOAT", Price = 90, SpacesRequired = 9 }
+                   new VehicleType { Name = "AIRPLANE", Price=90, SpacesRequired=9 },
+                   new VehicleType { Name = "BUS", Price = 60, SpacesRequired = 6 },
+                   new VehicleType { Name = "CAR", Price = 30, SpacesRequired = 3 },
+                   new VehicleType { Name = "MC", Price = 10, SpacesRequired = 1 },
+                   new VehicleType { Name = "VAN", Price = 30, SpacesRequired = 3},
+                   new VehicleType { Name = "BOAT", Price = 90, SpacesRequired = 9 }
 
                 );
         }
