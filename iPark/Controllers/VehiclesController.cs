@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using iPark.DAL;
 using iPark.Models;
+using iPark.BL;
 
 namespace iPark.Controllers
 {
@@ -61,6 +62,8 @@ namespace iPark.Controllers
             {
                 vehicles = vehicles.Where(e => e.CheckOut != null && System.DateTime.Parse(e.CheckOut.ToString()).CompareTo(System.DateTime.Parse(searchCheckOut)) > 0).ToList();
             }
+            var garageHelper = new GarageHelper(db);
+            var parkings =  garageHelper.GetFreeParking("Bus");
             return View(vehicles);
         }
 

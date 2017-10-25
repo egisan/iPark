@@ -23,6 +23,7 @@ namespace iPark.Migrations
             AddGarage();
             AddParking();
             AddVehicles();
+            AddVehicleTypes();
 
 
 
@@ -54,6 +55,20 @@ namespace iPark.Migrations
             }
            
             
+        }
+
+        private void AddVehicleTypes()
+        {
+            context.VehicleTypes.AddOrUpdate(
+               v => v.Name,
+                   new VehicleType { Name = "AIRPLANE", Price=90, SpacesRequired=9 },
+                   new VehicleType { Name = "BUS", Price = 60, SpacesRequired = 6 },
+                   new VehicleType { Name = "CAR", Price = 30, SpacesRequired = 3 },
+                   new VehicleType { Name = "MC", Price = 10, SpacesRequired = 1 },
+                   new VehicleType { Name = "VAN", Price = 30, SpacesRequired = 3},
+                   new VehicleType { Name = "BOAT", Price = 90, SpacesRequired = 9 }
+
+                );
         }
 
         private void AddVehicles()
