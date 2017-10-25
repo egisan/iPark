@@ -18,7 +18,7 @@ namespace iPark.Models
         public EnumEntities.Colors Color { get; set; }
 
         [Required]
-        public EnumEntities.Vtypes VehichleType { get; set; }
+        public EnumEntities.Vtypes VehicleType { get; set; }
 
         [Required]
         [StringLength(30, ErrorMessage = "{0}: Can't be less than {2} or more than {1} characters", MinimumLength = 2)]

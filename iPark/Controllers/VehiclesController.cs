@@ -43,13 +43,13 @@ namespace iPark.Controllers
             {
 
                 if (EnumEntities.Vtypes.BUS.ToString().ToLower() == searchVehichleType.ToLower())
-                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.BUS.ToString().ToLower()).ToList();
+                    vehicles = vehicles.Where(e => e.VehicleType.ToString().ToLower() == EnumEntities.Vtypes.BUS.ToString().ToLower()).ToList();
                 if (EnumEntities.Vtypes.CAR.ToString().ToLower() == searchVehichleType.ToLower())
-                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.CAR.ToString().ToLower()).ToList();
+                    vehicles = vehicles.Where(e => e.VehicleType.ToString().ToLower() == EnumEntities.Vtypes.CAR.ToString().ToLower()).ToList();
                 if (EnumEntities.Vtypes.MC.ToString().ToLower() == searchVehichleType.ToLower())
-                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.MC.ToString().ToLower()).ToList();
+                    vehicles = vehicles.Where(e => e.VehicleType.ToString().ToLower() == EnumEntities.Vtypes.MC.ToString().ToLower()).ToList();
                 if (EnumEntities.Vtypes.VAN.ToString().ToLower() == searchVehichleType.ToLower())
-                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.VAN.ToString().ToLower()).ToList();
+                    vehicles = vehicles.Where(e => e.VehicleType.ToString().ToLower() == EnumEntities.Vtypes.VAN.ToString().ToLower()).ToList();
 
 
             }
@@ -174,7 +174,7 @@ namespace iPark.Controllers
             {
                 var vehicleVM = new ReceiptViewModel();
 
-                vehicleVM.VehicleType = vehicle.VehichleType;
+                vehicleVM.VehicleType = vehicle.VehicleType;
                 vehicleVM.Make = vehicle.Make;
                 vehicleVM.Model = vehicle.Model;
                 vehicleVM.RegNo = vehicle.RegNo;
@@ -251,7 +251,7 @@ namespace iPark.Controllers
                     results = db.Vehicles.OrderBy(e => e.RegNo).ToList();
                     break;
                 case "1":
-                    results = db.Vehicles.OrderBy(e => e.VehichleType).ToList();
+                    results = db.Vehicles.OrderBy(e => e.VehicleType).ToList();
                     break;
                 case "2":
                     results = db.Vehicles.OrderBy(e => e.CheckIn).ToList();

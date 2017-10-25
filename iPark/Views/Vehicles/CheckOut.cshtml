@@ -35,11 +35,11 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.VehichleType)
+                    @Html.DisplayNameFor(model => model.VehicleType)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.VehichleType)
+                    @Html.DisplayFor(model => model.VehicleType)
                 </dd>
 
                 <dt>
@@ -80,7 +80,7 @@
                 <div class="col-md-offset-2 col-md-10">
                     <label>Request receipt</label>
                     <input id="check" type="checkbox" name="Receipt"/>
-
+                    @Html.ActionLink("Back to List", "Index")
                     <input type="submit" value="Save" class="btn btn-default" />
 
                 </div>
