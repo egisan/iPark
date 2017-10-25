@@ -37,16 +37,16 @@
 <table class="table listTable">
     <tr class="well btn-info">
         <th>
-            @Html.ActionLink("RegNo", "Index", new { sort = "0" }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
+            @Html.ActionLink("RegNo", "Index", new { sort = "0", searchRegNo = ViewBag.searchRegNo, searchVehichleType = ViewBag.searchVehichleType, searchCheckIn = ViewBag.searchCheckIn, searchCheckOut = ViewBag.searchCheckOut }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
         </th>
         <th>
-            @Html.ActionLink("Type", "Index", new { sort = "1" }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
+            @Html.ActionLink("Type", "Index", new { sort = "1", searchRegNo = ViewBag.searchRegNo, searchVehichleType = ViewBag.searchVehichleType, searchCheckIn = ViewBag.searchCheckIn, searchCheckOut = ViewBag.searchCheckOut }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
         </th>
         <th>
-            @Html.ActionLink("CheckIn", "Index", new { sort = "2" }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
+            @Html.ActionLink("CheckIn", "Index", new { sort = "2", searchRegNo = ViewBag.searchRegNo, searchVehichleType = ViewBag.searchVehichleType, searchCheckIn = ViewBag.searchCheckIn, searchCheckOut = ViewBag.searchCheckOut }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
         </th>
         <th>
-            @Html.ActionLink("CheckOut", "Index", new { sort = "3" }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
+            @Html.ActionLink("CheckOut", "Index", new { sort = "3", searchRegNo = ViewBag.searchRegNo, searchVehichleType = ViewBag.searchVehichleType, searchCheckIn = ViewBag.searchCheckIn, searchCheckOut = ViewBag.searchCheckOut }, new { @class = "glyphicon glyphicon-sort-by-alphabet" })
         </th>
         <th></th>
     </tr>
