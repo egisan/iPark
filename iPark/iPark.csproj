@@ -160,6 +160,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EnumEntities.cs" />
+    <Compile Include="Models\Garage.cs" />
+    <Compile Include="Models\Parking.cs" />
+    <Compile Include="Models\ParkingSize.cs" />
     <Compile Include="Models\ReceiptViewModel.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
