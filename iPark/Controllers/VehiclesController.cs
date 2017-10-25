@@ -230,6 +230,7 @@ namespace iPark.Controllers
             base.Dispose(disposing);
         }
 
+
         public List<Vehicle> GetSorted(string sort)
         {
             List<Vehicle> results = new List<Vehicle>();
@@ -250,7 +251,6 @@ namespace iPark.Controllers
                 default:
                     results = db.Vehicles.ToList();
                     break;
-
             }
 
             return results;

@@ -165,7 +165,7 @@
     <Compile Include="Models\ParkingVehicle.cs" />
     <Compile Include="Models\ReceiptViewModel.cs" />
     <Compile Include="Models\Vehicle.cs" />
-    <Compile Include="Models\VehicleTypes.cs" />
+    <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
