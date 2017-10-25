@@ -78,10 +78,11 @@
             <div class="form-group">
 
                 <div class="col-md-offset-2 col-md-10">
-                    <label>Request receipt</label>
-                    <input id="check" type="checkbox" name="Receipt"/>
-                    @Html.ActionLink("Back to List", "Index")
+                    <i class="glyphicon glyphicon-backward" aria-hidden="true"></i>
+                    @Html.ActionLink("Back to List", "Index") <span> | </span>
                     <input type="submit" value="Save" class="btn btn-default" />
+                    <input id="check" type="checkbox" name="Receipt" />
+                    <small>Request receipt</small>
 
                 </div>
             </div>

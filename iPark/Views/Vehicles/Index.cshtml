@@ -12,14 +12,14 @@
     <table>
         <tr>
             <td>RegNo</td>
-            <td>VehichleType</td>
+            <td>VehicleType</td>
             <td>CheckIn</td>
             <td>CheckOut</td>
             <td></td>
         </tr>
         <tr>
             <td> @Html.TextBox("searchRegNo", ViewBag.searchRegNo as string) </td>
-            <td> @Html.TextBox("searchVehichleType", ViewBag.searchVehichleType as string) </td>
+            <td> @Html.TextBox("searchVehicleType", ViewBag.searchVehicleType as string) </td>
             <td> @Html.TextBox("searchCheckIn", ViewBag.searchCheckIn as string) </td>
             <td> @Html.TextBox("searchCheckOut", ViewBag.searchCheckOut as string) </td>
             <td><input type="submit" value="Search" /></td>
@@ -69,10 +69,14 @@
                 @Html.DisplayFor(modelItem => item.CheckOut)
             </td>
             <td>
-                @Html.ActionLink("modify", "Edit", new { id = item.Id }) |
+                <i class="glyphicon glyphicon-edit"></i>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                <i class="glyphicon glyphicon-search"></i>
                 @Html.ActionLink("Details", "Details", new { id = item.Id })
                 @if (item.CheckOut == null)
-                { |
+                {
+                <span> | </span>
+                <i class="glyphicon glyphicon-ban-circle"></i>
                 @Html.ActionLink("Check out", "CheckOut", new { id = item.Id })
                 }
             </td>

@@ -79,6 +79,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Modify", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    <i class="glyphicon glyphicon-backward" aria-hidden="true"></i>
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Modify", "Edit", new { id = Model.Id })
 </p>
