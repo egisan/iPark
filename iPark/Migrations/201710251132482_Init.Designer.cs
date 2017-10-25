@@ -7,13 +7,13 @@ namespace iPark.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class databasefix : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(databasefix));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710250825525_databasefix"; }
+            get { return "201710251132482_Init"; }
         }
         
         string IMigrationMetadata.Source

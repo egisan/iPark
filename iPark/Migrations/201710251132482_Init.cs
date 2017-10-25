@@ -3,7 +3,7 @@ namespace iPark.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class databasefix : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
