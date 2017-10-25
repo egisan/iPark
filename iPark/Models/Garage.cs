@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using iPark.DAL;
 
 
 namespace iPark.Models
@@ -16,6 +17,14 @@ namespace iPark.Models
 
         [Range(1, Int32.MaxValue, ErrorMessage = "The number of {0} must be between {1} and {2}")]
         public int Capacity { get; set; }
+
+
+        public int GetFreeSpaces(GarageContext context, int garageId)
+        {
+            int result = 0;
+           // result = context.Parkings
+            return result;
+        }
 
     }
 }
