@@ -13,7 +13,7 @@ namespace iPark.Models
         [Required]
         [StringLength(7, ErrorMessage = "{0}: Can't be more than {1} characters", MinimumLength =6)]
         public string RegNo { get; set; }
-
+        
         [Required]
         public EnumEntities.Colors Color { get; set; }
 
