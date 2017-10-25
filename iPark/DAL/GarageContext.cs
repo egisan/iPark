@@ -11,8 +11,8 @@ namespace iPark.DAL
         public GarageContext() : base("Garage2")
         {
         }
-        public DbSet<Models.Garage> Garages { get; set; }
+        //public DbSet<Models.Garage> Garages { get; set; }
         public DbSet <Models.Vehicle> Vehicles { get; set; }
-        public DbSet<Models.Parking> Parkings { get; set; }
+        //public DbSet<Models.Parking> Parkings { get; set; }
     }
 }

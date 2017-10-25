@@ -42,14 +42,14 @@ namespace iPark.Controllers
             if (!String.IsNullOrEmpty(searchVehichleType))
             {
 
-                if (EnumEntities.Vtypes.BUS.ToString().ToLower() == searchVehichleType.ToLower())
-                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.BUS.ToString().ToLower()).ToList();
-                if (EnumEntities.Vtypes.CAR.ToString().ToLower() == searchVehichleType.ToLower())
-                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.CAR.ToString().ToLower()).ToList();
+                if (EnumEntities.Vtypes.Bus.ToString().ToLower() == searchVehichleType.ToLower())
+                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.Bus.ToString().ToLower()).ToList();
+                if (EnumEntities.Vtypes.Car.ToString().ToLower() == searchVehichleType.ToLower())
+                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.Car.ToString().ToLower()).ToList();
                 if (EnumEntities.Vtypes.MC.ToString().ToLower() == searchVehichleType.ToLower())
                     vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.MC.ToString().ToLower()).ToList();
-                if (EnumEntities.Vtypes.VAN.ToString().ToLower() == searchVehichleType.ToLower())
-                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.VAN.ToString().ToLower()).ToList();
+                if (EnumEntities.Vtypes.Van.ToString().ToLower() == searchVehichleType.ToLower())
+                    vehicles = vehicles.Where(e => e.VehichleType.ToString().ToLower() == EnumEntities.Vtypes.Van.ToString().ToLower()).ToList();
 
 
             }
