@@ -15,7 +15,7 @@ namespace iPark.Controllers
     public class VehiclesController : Controller
     {
         private GarageContext db = new GarageContext();
-
+        
 
         // Shows the Partial View of vehicles which are in the Garage
         // GET: Vehicles
@@ -62,8 +62,7 @@ namespace iPark.Controllers
             {
                 vehicles = vehicles.Where(e => e.CheckOut != null && System.DateTime.Parse(e.CheckOut.ToString()).CompareTo(System.DateTime.Parse(searchCheckOut)) > 0).ToList();
             }
-            var garageHelper = new GarageHelper(db);
-            var parkings =  garageHelper.GetFreeParking("Bus");
+           
             return View(vehicles);
         }
 
@@ -100,10 +99,60 @@ namespace iPark.Controllers
         {
             if (ModelState.IsValid)
             {
-                vehicle.CheckIn = System.DateTime.Now;  // We add the TimeStamp!
-                db.Vehicles.Add(vehicle);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //var garageHelper = new GarageHelper(db);
+                // var parked = garageHelper.VehicleAlreadyParked(vehicle.RegNo);
+                var parked = db.Vehicles.Where(v=> v.RegNo == vehicle.RegNo && v.CheckOut == null).FirstOrDefault();
+                var garage = db.Garages.FirstOrDefault();
+                var TotalParked = db.Vehicles.Where(v => v.CheckOut == null).ToList().Count();
+                if (parked == null && ((garage.Capacity -90) - TotalParked) > 0)
+                {
+                    vehicle.CheckIn = System.DateTime.Now;  // We add the TimeStamp!
+                    db.Vehicles.Add(vehicle);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ViewBag.AlreadyParked = " Vehicle is already parked.";
+                }
+                
+                //var garageHelper = new GarageHelper(db);
+                //var parked = garageHelper.VehicleAlreadyParked(vehicle.RegNo);
+                //List<Parking> freeParkings = garageHelper.GetFreeParking(vehicle.VehicleType.ToString());
+                //var vehicleType = garageHelper.GetVehicleType(vehicle.VehicleType.ToString());
+                //var spacesRequired = (vehicleType.SpacesRequired >= 3) ? vehicleType.SpacesRequired / 3 : vehicleType.SpacesRequired;
+
+                //if (!parked && freeParkings.Count == spacesRequired)
+                //{
+
+                //    vehicle.CheckIn = System.DateTime.Now;  // We add the TimeStamp!
+                //    db.Vehicles.Add(vehicle);
+                //    db.SaveChanges();
+                //    var savedVehicle = db.Vehicles.Where(v => v.RegNo == vehicle.RegNo && v.CheckOut == null).FirstOrDefault();
+                //    if (savedVehicle != null)
+                //    {
+                       
+                //        foreach(var parking in freeParkings)
+                //        {
+                //            ParkingVehicle parkingVehicle = new ParkingVehicle();
+                //            //parkingVehicle.Parking = parking;
+                //            //parkingVehicle.Vehicle = savedVehicle;
+                //            parkingVehicle.ParkingId = parking.Id;
+                //            parkingVehicle.VehicleId = savedVehicle.Id;
+                //            db.ParkingVehicles.Add(parkingVehicle);
+                //            db.SaveChanges();
+
+                //        }
+                       
+                //    }
+
+                //    // find parking(s) and ceate relation
+                //}
+                //else
+                //{
+                //    //Message already parked
+                //}
+               
+              //  return RedirectToAction("Index");
             }
             return View(vehicle);
         }
