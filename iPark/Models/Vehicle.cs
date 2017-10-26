@@ -36,5 +36,6 @@ namespace iPark.Models
         [DataType(DataType.DateTime)]
         // [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? CheckOut { get; set; }
+        public virtual ICollection<ParkingVehicle> Parkings { get; set; }
     }
 }

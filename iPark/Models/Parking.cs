@@ -11,7 +11,6 @@ namespace iPark.Models
         public int ParkingNo { get; set; }
         public int GarageId { get; set; }
         public Garage Garage { get; set; }
-        //public ParkingSize Size { get; set; }
-        //public EnumEntities.Vtypes ParkingType { get; set; }
+        public ICollection<ParkingVehicle> Parkings { get; set; }
     }
 }
