@@ -11,6 +11,6 @@ namespace iPark.Models
         public int ParkingNo { get; set; }
         public int GarageId { get; set; }
         public Garage Garage { get; set; }
-        public ICollection<ParkingVehicle> Parkings { get; set; }
+        public ICollection<ParkingVehicle> Vehicles { get; set; }
     }
 }
