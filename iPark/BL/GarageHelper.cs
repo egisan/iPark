@@ -16,6 +16,8 @@ namespace iPark.BL
             this.context = context;
         }
 
+       
+
         public bool VehicleAlreadyParked(string regNo)
         {
             bool isParked = true;
@@ -41,20 +43,27 @@ namespace iPark.BL
 
         private Parking GetFirstFreeParking()
         {
-            
+
             foreach (var parking in context.Parkings)
             {
-                foreach (var parkingVehicle in context.ParkingVehicles.Where(pv => pv.ParkingId == parking.Id).ToList())
+                var parkingVehicles = context.ParkingVehicles.Where(pv => pv.ParkingId == parking.Id).ToList();
+                if (parkingVehicles.Count == 0)
+                    return parking;
+                foreach (var parkingVehicle in parkingVehicles)
                 {
-                    if (context.Vehicles.Where(v => v.Id == parkingVehicle.VehicleId && v.CheckOut == null).ToList().Count == 0)
+                    var vehicles = context.Vehicles.Where(v => v.Id == parkingVehicle.VehicleId && v.CheckOut == null).ToList();
+                    if (vehicles.Count == 0)
                         return parking;
-                    else
-                    {
-
-                    }
                     
+
                 }
             }
+            //var queries = from p in context.Parkings
+            //              where p.Id == (from pv in context.ParkingVehicles where pv.ParkingId == p.Id && pv.VehicleId ==
+            //                             (from v in context.Vehicles where v.Id == pv.VehicleId && v.CheckOut != null select pv.ParkingId).FirstOrDefault()select p.);
+
+            // var query = context.Parkings.Where(p => p.Vehicles.Where(v => v.Vehicle.CheckOut != null)).FirstOrDefault();  
+            // var parking = context.Parkings.Where(p => p.Vehicles.Any(v => v.Vehicle.CheckOut != null)).ToList().FirstOrDefault();
             return new Parking();
         }
 
@@ -80,7 +89,7 @@ namespace iPark.BL
         private Parking GetFirstFreeParking(List<Parking> freeParking, Parking parking)
         {
 
-            if(parking != null)
+            if(parking != null && parking.Id > 0)
             {
                 if (freeParking.Where(fp => fp.Id == parking.Id).Count() == 0)
                 {
@@ -163,7 +172,7 @@ namespace iPark.BL
                         }
 
                     }
-                    if (parking != null)
+                    if (parking != null && parking.Id > 0)
                     {
                         results.Add(parking);
                         lastUsedParkingNo = parking.ParkingNo + 1;
@@ -171,7 +180,7 @@ namespace iPark.BL
                         foreach (var aParking in adjacentFreeList)
                         {
                            var foundFreeParking =  GetFirstFreeParking(results, aParking);
-                            if (foundFreeParking != null)
+                            if (foundFreeParking != null && foundFreeParking.Id > 0)
                             {
                                 //free found
                                 results.Add(foundFreeParking);
