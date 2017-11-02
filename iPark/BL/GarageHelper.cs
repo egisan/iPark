@@ -17,6 +17,24 @@ namespace iPark.BL
         }
 
        
+        public Parking CheckFreeParking(int id)
+        {
+            //var result = context.Parkings.Join(context.ParkingVehicles, p => p.Id, pv => pv.ParkingId,
+            //   (p, pv) => new
+            //   {
+            //       Parking = p,
+            //       ParkingVehicle = pv
+            //   }).Where(p => p.Parking.Id ==1).ToList();
+
+
+            var query = (from p in context.Parkings
+                        join pv in context.ParkingVehicles on p.Id equals pv.ParkingId
+                        join v in context.Vehicles on pv.VehicleId equals v.Id
+                        where p.Id == id && v.CheckOut == null
+                        select p).ToList().FirstOrDefault();
+
+            return query;
+        }
 
         public bool VehicleAlreadyParked(string regNo)
         {
@@ -30,41 +48,20 @@ namespace iPark.BL
         private string GetVehicleParkingNo(Vehicle vehicle)
         {
             var result = "";
-            var parkingVehicle = context.ParkingVehicles.Where(pv => pv.VehicleId == vehicle.Id).ToList();
-            if (parkingVehicle == null)
-                return result = "";
-            else
-            {
-               
-            }
+            
 
             return result;
         }
 
         private Parking GetFirstFreeParking()
         {
-
             foreach (var parking in context.Parkings)
             {
-                var parkingVehicles = context.ParkingVehicles.Where(pv => pv.ParkingId == parking.Id).ToList();
-                if (parkingVehicles.Count == 0)
+                var freeParking = CheckFreeParking(parking.Id);
+                if (freeParking != null && freeParking.Id != 0)
                     return parking;
-                foreach (var parkingVehicle in parkingVehicles)
-                {
-                    var vehicles = context.Vehicles.Where(v => v.Id == parkingVehicle.VehicleId && v.CheckOut == null).ToList();
-                    if (vehicles.Count == 0)
-                        return parking;
-                    
-
-                }
             }
-            //var queries = from p in context.Parkings
-            //              where p.Id == (from pv in context.ParkingVehicles where pv.ParkingId == p.Id && pv.VehicleId ==
-            //                             (from v in context.Vehicles where v.Id == pv.VehicleId && v.CheckOut != null select pv.ParkingId).FirstOrDefault()select p.);
-
-            // var query = context.Parkings.Where(p => p.Vehicles.Where(v => v.Vehicle.CheckOut != null)).FirstOrDefault();  
-            // var parking = context.Parkings.Where(p => p.Vehicles.Any(v => v.Vehicle.CheckOut != null)).ToList().FirstOrDefault();
-            return new Parking();
+             return new Parking();
         }
 
         private Parking GetFirstFreeParking(List<Parking> freeParking)
@@ -129,7 +126,6 @@ namespace iPark.BL
             var spacesRequired = (vehicleType.SpacesRequired >= 3)? vehicleType.SpacesRequired / 3 : vehicleType.SpacesRequired;
             if (vehicleType.Name.ToLower().Trim() == "mc")
             {
-
                 var mcList = context.Vehicles.Where(v => v.VehicleType.ToString().ToUpper() == EnumEntities.Vtypes.MC.ToString().ToUpper() && v.CheckOut == null).ToList();
                 if (mcList.Count == 0)
                 {
